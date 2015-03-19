@@ -1,6 +1,7 @@
 ### sends a continuous pulse
 from core import serial_command
 import sys
+import time
 
 def safe_exit(sc,e):
     print "Exit safely"
@@ -15,7 +16,7 @@ if __name__=="__main__":
     channel = int(channel)
     number = int(number)
     print "Opening serial link..."
-    sc = serial_command.SerialCommand("/dev/tty.usbserial-FTGA2OCZ")
+    sc = serial_command.SerialCommand("/dev/tty.usbserial-FTE3C0PG")
     print "Done!"
     sc.stop()
     sc.select_channel(channel)
@@ -24,9 +25,12 @@ if __name__=="__main__":
     sc.set_pulse_number(number)
     for i in range(10):
         try:
-            print sc.trigger_single()
-            #while True:
-            #    pass
+            sc.trigger_averaged()
+            pin = False
+            while pin==False:
+                pin = sc.poll_for_avg_pin(timeout=1.0)
+                #print sc.stop_triggering(), pin
+            print pin
         except Exception,e:
             safe_exit(sc,e)
         except KeyboardInterrupt:

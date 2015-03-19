@@ -25,15 +25,15 @@ if __name__=="__main__":
     sc.set_pulse_number(number)
     for i in range(10):
         try:
-            sc.trigger_single()
-            finished=False
-            #while finished is False:
-            #    finished = sc.trigger_sequence_wait()
+            sc.trigger_averaged()
+            pin = False
+            while pin==False:
+                #Will poll every 0.1s untill timeout
+                pin = sc.read_triggered_average_pin(interval=0.5, timeout=2)
+                #pin = sc.read_pin_sequence()
+                #print sc.stop_triggering(), pin
+            print pin
             time.sleep(2)
-            #print sc.trigger_sequence_wait()
-            print sc.read_pin(channel=channel)
-            #while True:
-            #    pass
         except Exception,e:
             safe_exit(sc,e)
         except KeyboardInterrupt:

@@ -9,20 +9,20 @@ def safe_exit(sc,e):
 
 if __name__=="__main__":
     width = sys.argv[1]
-    rate = sys.argv[2]
-    channel = sys.argv[3]
+    #rate = sys.argv[3]
+    channel = sys.argv[2]
     width = int(width)
-    rate = float(rate)
+    #rate = float(rate)
     channel = int(channel)
-    print width,rate
-    sc = serial_command.SerialCommand("/dev/tty.usbserial-FTE3C0PG")
+    print width#, rate
+    sc = serial_command.SerialCommand("/dev/tty.usbserial-FTGA2OCZ")
     sc.stop()
     sc.select_channel(channel)
     sc.set_pulse_height(16383)
     sc.set_pulse_width(width)
-    sc.set_pulse_delay(rate)
+    #sc.set_pulse_delay(rate)
     try:
-        sc.fire_continuous()
+        sc.enable_external_trig()
         while True:
             pass
     except Exception,e:
