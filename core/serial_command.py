@@ -15,6 +15,7 @@
 # 2013/03/08: First instance
 # 2013/10/21: Added new classes for different chips, pep8
 # 2015/03/19: Added external trigger functionality
+#
 ###########################################
 ###########################################
 
