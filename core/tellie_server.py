@@ -23,12 +23,12 @@ import re
 import sys
 import time
 from common import parameters
+_snotDaqLog = False
 try:
     from snotdaq import logger
     _snotDaqLog = True
 except ImportError:
     from common import tellie_logger
-    _snotDatLog = False
 
 class TellieException(Exception):
     """General exception for the Tellie command modules"""
@@ -97,7 +97,9 @@ class SerialCommand(object):
     """Contains a serial command object.
     """
 
-    def __init__(self, port_name = "/dev/tty.usbserial-FTE3C0PG", server_port = 5030, logger_port = 4001,
+    #def __init__(self, port_name = "/dev/tty.usbserial-FTE3C0PG", server_port = 5030, logger_port = 4001,
+    #             port_timeout = 0.3):
+    def __init__(self, port_name = "/dev/tty.usbserial-FTGA2OCZ", server_port = 5030, logger_port = 4001,
                  port_timeout = 0.3):
         '''Initialise function: open serial connection.
         '''
@@ -116,6 +118,7 @@ class SerialCommand(object):
 
         else:
             self.logger = tellie_logger.TellieLogger.get_instance()
+            self.logger.set_debug_mode(True)
 
         # Set up serial connection to tellie
         self._serial = None
