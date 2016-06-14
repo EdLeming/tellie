@@ -72,6 +72,9 @@ class TellieLogger:
     def log(self, message):
         log_message(message, self._log_file)
 
+    def notice(self, message):
+        log_message("NOTICE: " + message, self._log_file, self._colwarn)
+
     def debug(self, message):
         if self._debug_mode:
             log_message("DEBUG: " + message, self._log_file, self._coldbg)
