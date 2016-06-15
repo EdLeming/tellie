@@ -23,6 +23,7 @@ import re
 import sys
 import time
 import math
+from datetime import datetime
 try:
     from snotdaq import logger
     _snotDaqLog = True
@@ -173,8 +174,9 @@ class SerialCommand(object):
                 self.logger.connect('tellie', 'minard', self._logger_port)
             except Exception as e:
                 self.logger.warn("unable to connect to log server: %s" % str(e))
+            datestr = datetime.now().strftime("%d-%b_%H:%M:%S")
+            #self.logger.set_logfile("/Users/snotdaq/tellieGit/logs/%s.log" % datestr)
             self.logger.notice("Tellie connected to log server!")
-
         else:
             self.logger = tellie_logger.TellieLogger.get_instance()
 
